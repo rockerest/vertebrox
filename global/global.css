@@ -1,0 +1,290 @@
+/* CSS Reset
+	http://meyerweb.com/eric/tools/css/reset/
+						*/
+	html, body, div, span, applet, object, iframe,
+	h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+	a, abbr, acronym, address, big, cite, code,
+	del, dfn, em, font, img, ins, kbd, q, s, samp,
+	small, strike, strong, sub, sup, tt, var,
+	dl, dt, dd, ol, ul, li,
+	fieldset, form, label, legend,
+	table, caption, tbody, tfoot, thead, tr, th, td {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		outline: 0;
+		font-weight: inherit;
+		font-style: inherit;
+		font-size: 100%;
+		font-family: Arial, Helvetica, Tahoma, Geneva, sans-serif;
+		vertical-align: baseline;
+	}
+
+	:focus {
+		outline: 0;
+	}
+
+	div{
+		position: relative;
+	}
+
+	body {
+		line-height: 1;
+		color: #FFFFFF;
+		background: #000000;
+		
+		width: 100%;
+		height: 100%;
+		text-align: center;
+	}
+
+	ol, ul {
+		list-style: none;
+	}
+
+	table {
+		border-collapse: separate;
+		border-spacing: 0;
+	}
+
+	caption, th, td {
+		text-align: left;
+		font-weight: normal;
+	}
+
+	blockquote:before, blockquote:after,
+	q:before, q:after {
+		content: "";
+	}
+
+	blockquote, q {
+		quotes: "" "";
+	}
+/* End CSS Reset		*/
+/*						*/
+
+/* Element Styles		*/
+/*						*/
+
+	/* Headers */
+	h1{
+		font-size: 1.5em;
+		font-weight: bold;
+	}
+
+	h2{
+		font-size: 1.3em;
+		font-weight: bold;
+	}
+
+	h3{
+		font-size: 1.1em;
+		font-weight: bold;
+	}
+
+	h4{
+		font-weight: bold;
+	}
+
+	h5{
+		font-size: .9em;
+		font-weight: bold;
+	}
+	/* end Headers */
+
+/* End Element Styles	*/
+/*						*/
+
+/* IDed Styles		*/
+/*						*/
+	#nojs{
+		line-height: 1.1;
+		font-size: 0.75em;
+		background: #CC3333;
+		
+		position: fixed;
+		bottom: 0px;
+		left: 10%;
+		
+		margin: 0px auto 0px auto;
+		padding: 1px;
+		
+		width: 80%;
+		z-index: 100000;
+		
+		-webkit-border-top-left-radius: 35px;
+		-webkit-border-top-right-radius: 35px;
+		-webkit-border-bottom-right-radius: 0px;
+		-webkit-border-bottom-left-radius: 0px;
+		-moz-border-radius-topleft: 35px;
+		-moz-border-radius-topright: 35px;
+		-moz-border-radius-bottomright: 0px;
+		-moz-border-radius-bottomleft: 0px;
+		border-top-left-radius: 35px;
+		border-top-right-radius: 35px;
+		border-bottom-right-radius: 0px;
+		border-bottom-left-radius: 0px; 
+	}
+/*	End IDed Styles	*/
+/*						*/
+
+/*	Class Styles		*/
+/*						*/
+	/* Clearfix */
+		.clear:after {
+			content: ".";
+			display: block;
+			height: 0;
+			clear: both;
+			visibility: hidden;
+		}
+					
+		.clear {
+			display: inline-block;
+		}
+
+		/* Hides from IE-mac \*/
+		* html .clear {
+			height: 1%;
+		}
+
+		.clear {
+			display: block;
+		}
+		/* End hide from IE-mac */
+	/* End Clearfix */
+	
+	/* Message Boxes */
+		.message-box{
+			padding: .6em;
+		
+			text-align: center;
+			
+			color:#545454;
+		}
+
+		.clean{
+			background-color: #efefef;
+			
+			border-top: 2px solid #dedede;
+			border-bottom: 2px solid #dedede;
+		}
+
+		.info{
+			background-color: #f7fafd;
+			
+			border-top: 2px solid #b5d3ff;
+			border-bottom: 2px solid #b5d3ff;
+		}
+
+		.okay{
+			background-color: #d7f7c4;
+			
+			border-top: 2px solid #82cb2f;
+			border-bottom: 2px solid #82cb2f;
+		}
+			
+		.alert{
+			background-color: #fef5be;
+			
+			border-top: 2px solid #fdd425;
+			border-bottom: 2px solid #fdd425;
+		}
+			
+		.error{
+			background-color: #ffcdd1;
+			
+			border-top: 2px solid #e10c0c;
+			border-bottom: 2px solid #e10c0c;
+		}
+	/* End Message Boxes */
+	
+	/* Text color, styling, decoration */
+		.italics{
+			font-style: italic;
+		}
+
+		.bold{
+			font-weight: bold;
+		}
+
+		.underline{
+			text-decoration: underline;
+		}
+
+		.no-dec{
+			text-decoration: none !important;
+		}
+		
+		.strike{
+			text-decoration: line-through;
+		}
+
+		.keyword{
+			color: #6789AB;
+		}
+
+		.sub{
+			vertical-align: sub;
+		}
+
+		.sup{
+			vertical-align: super;
+		}
+		
+		.quote{
+			font-style: italic;
+		}
+	/* End text color, styling, decoration */
+	
+	/* Positioning */
+		.center{
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.center-text{
+			text-align: center;
+		}
+
+		.left-text{
+			text-align: left;
+		}
+
+		.right-text{
+			text-align: right;
+		}
+		
+		.quote{
+			margin-left: 4em;
+			margin-right: 4em;
+		}
+	/* End positioning */
+	
+	/* Sizing */
+		.large{
+			font-size: 1.5em;
+		}
+
+		.small{
+			font-size: .75em;
+		}
+		
+		.sub, .sup{
+			font-size: .5em;
+		}
+	/* End sizing */
+	
+	.no-bbord{
+		border-bottom: 0 !important;
+	}
+
+	.pointer{
+		cursor: pointer;
+	}
+
+	.hide{
+		display:none;
+	}
+/*	End Class Styles	*/
+/*						*/
