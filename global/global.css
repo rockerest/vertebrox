@@ -236,9 +236,18 @@
 	/* End text color, styling, decoration */
 	
 	/* Positioning */
+		.left{
+			margin-right: auto;
+			margin-left: 0;
+		}
 		.center{
 			margin-left: auto;
 			margin-right: auto;
+		}
+		
+		.right{
+			margin-right: 0;
+			margin-left: auto;
 		}
 
 		.center-text{
