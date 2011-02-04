@@ -1,5 +1,5 @@
 <?php
-	function 	setSession($expire, $root)
+	function setSession($expire, $root)
 	{
 		if( !isset( $_COOKIE['identifier'] ) )
 		{
@@ -17,7 +17,7 @@
 		}
 	}
 	
-	function 	setSessionVar($name, $value)
+	function setSessionVar($name, $value)
 	{
 		$_SESSION[$name] = $value;
 	}
