@@ -157,8 +157,6 @@
 	/* Message Boxes */
 		.message-box{
 			padding: .6em;
-		
-			text-align: center;
 			
 			color:#545454;
 		}
@@ -274,6 +272,12 @@
 			font-size: .5em;
 		}
 	/* End sizing */
+	
+	/* Spacing */
+		.tall{
+			line-height: 1.3em;
+		}
+	/* End spacing */
 	
 	.no-bbord{
 		border-bottom: 0 !important;
