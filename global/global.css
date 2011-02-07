@@ -249,6 +249,10 @@
 			margin-right: 0;
 			margin-left: auto;
 		}
+		
+		.bump{
+			margin-top: 1em;
+		}
 
 		.center-text{
 			text-align: center;
@@ -279,6 +283,26 @@
 		
 		.sub, .sup{
 			font-size: .5em;
+		}
+		
+		.w25{
+			width: 25%;
+		}
+		
+		.w50{
+			width: 50%;
+		}
+		
+		.w60{
+			width: 60%;
+		}
+		
+		.w75{
+			width: 75%;
+		}
+		
+		.w80{
+			width: 80%;
 		}
 	/* End sizing */
 	
