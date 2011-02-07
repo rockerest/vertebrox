@@ -103,27 +103,27 @@
 		background: #CC3333;
 		
 		position: fixed;
-		bottom: 0px;
+		bottom: 0em;
 		left: 10%;
 		
-		margin: 0px auto 0px auto;
-		padding: 1px;
+		margin: 0em auto 0em auto;
+		padding: .0625em;
 		
 		width: 80%;
 		z-index: 100000;
 		
-		-webkit-border-top-left-radius: 35px;
-		-webkit-border-top-right-radius: 35px;
-		-webkit-border-bottom-right-radius: 0px;
-		-webkit-border-bottom-left-radius: 0px;
-		-moz-border-radius-topleft: 35px;
-		-moz-border-radius-topright: 35px;
-		-moz-border-radius-bottomright: 0px;
-		-moz-border-radius-bottomleft: 0px;
-		border-top-left-radius: 35px;
-		border-top-right-radius: 35px;
-		border-bottom-right-radius: 0px;
-		border-bottom-left-radius: 0px; 
+		-webkit-border-top-left-radius: 2.1875em;
+		-webkit-border-top-right-radius: 2.1875em;
+		-webkit-border-bottom-right-radius: 0em;
+		-webkit-border-bottom-left-radius: 0em;
+		-moz-border-radius-topleft: 2.1875em;
+		-moz-border-radius-topright: 2.1875em;
+		-moz-border-radius-bottomright: 0em;
+		-moz-border-radius-bottomleft: 0em;
+		border-top-left-radius: 2.1875em;
+		border-top-right-radius: 2.1875em;
+		border-bottom-right-radius: 0em;
+		border-bottom-left-radius: 0em; 
 	}
 /*	End IDed Styles	*/
 /*						*/
@@ -164,36 +164,36 @@
 		.clean{
 			background-color: #efefef;
 			
-			border-top: 2px solid #dedede;
-			border-bottom: 2px solid #dedede;
+			border-top: .125em solid #dedede;
+			border-bottom: .125em solid #dedede;
 		}
 
 		.info{
 			background-color: #f7fafd;
 			
-			border-top: 2px solid #b5d3ff;
-			border-bottom: 2px solid #b5d3ff;
+			border-top: .125em solid #b5d3ff;
+			border-bottom: .125em solid #b5d3ff;
 		}
 
 		.okay{
 			background-color: #d7f7c4;
 			
-			border-top: 2px solid #82cb2f;
-			border-bottom: 2px solid #82cb2f;
+			border-top: .125em solid #82cb2f;
+			border-bottom: .125em solid #82cb2f;
 		}
 			
 		.alert{
 			background-color: #fef5be;
 			
-			border-top: 2px solid #fdd425;
-			border-bottom: 2px solid #fdd425;
+			border-top: .125em solid #fdd425;
+			border-bottom: .125em solid #fdd425;
 		}
 			
 		.error{
 			background-color: #ffcdd1;
 			
-			border-top: 2px solid #e10c0c;
-			border-bottom: 2px solid #e10c0c;
+			border-top: .125em solid #e10c0c;
+			border-bottom: .125em solid #e10c0c;
 		}
 	/* End Message Boxes */
 	
