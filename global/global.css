@@ -312,16 +312,17 @@
 		}
 	/* End spacing */
 	
-	.no-bbord{
-		border-bottom: 0 !important;
-	}
-
-	.pointer{
-		cursor: pointer;
-	}
-
-	.hide{
-		display:none;
-	}
+	/* UI */
+		.pointer{
+			cursor: pointer;
+		}
+	/* End UI */
+	
+	/* Display and visibility */
+		.hide{
+			display: none;
+		}
+	/* End display and visibility */
+	
 /*	End Class Styles	*/
 /*						*/
