@@ -1,8 +1,9 @@
 backbone/ is where the real magic happens.
 
 I do love my global/ files, but that's a personal preference thing.
+There's a global CSS (with reset, and some useful styling that takes a lot of pain out of setting up a new site), and some javascript stuff that I use sometimes.
 
-jquery/ has a few plugins I use, as well as a little plugin I wrote.
+jquery/ is any jQuery plugins that I've written (it's just one right now).
 
 If you're interested in this repo, what you probably want is the stuff in backbone/.  I also recommend you take a look at global/, but the stuff in there is personal preference.
 

@@ -4,9 +4,9 @@
 		private $log = array();
 		private $status = array();
 		
-		private $source = NULL;
+		private $source = null;
 		private $srcFh;
-		private $destination = NULL;
+		private $destination = null;
 		
 		private $origXW;
 		private $origYH;
@@ -20,110 +20,130 @@
 		//private $xP;
 		//private $yP;
 		
-		public function __construct($src = NULL, $dest = NULL)
+		public function __construct($src = null, $dest = null)
 		{
-			if( $src == NULL || $dest == NULL )
+			if( $src == null || $dest == null )
 			{
-				$this->logStat("SRC_or_DEST_!set", FALSE);
+				$this->logStat("SRC_or_DEST_!set", false);
 			}
-			elseif( $src != NULL && $dest != NULL )
+			elseif( $src != null && $dest != null )
 			{
 				$this->source = $src;
 				$this->destination = $dest;
-				$this->logStat("NEW_IMAGE_CREATED", TRUE);
-				$this->logStat("SRC_CREATED", TRUE);
-				$this->logStat("DEST_CREATED", TRUE);
+				$this->logStat("NEW_IMAGE_CREATED", true);
+				$this->logStat("SRC_CREATED", true);
+				$this->logStat("DEST_CREATED", true);
 			}
 		}
 		
-		public function setSrc($src = NULL)
+		public function setSrc($src = null)
 		{
-			if( $src == NULL )
+			if( $src == null )
 			{
-				$this->logStat("SRC_!set", FALSE);
+				$this->logStat("SRC_!set", false);
 			}
 			else
 			{
 				$this->source = $src;
-				$this->logStat("SRC_SET", TRUE);
+				$this->logStat("SRC_SET", true);
 			}
 		}
 		
-		public function setDest($dest = NULL)
+		public function setDest($dest = null)
 		{
-			if( $dest == NULL )
+			if( $dest == null )
 			{
-				$this->logStat("DEST_!set", FALSE);
+				$this->logStat("DEST_!set", false);
 			}
 			else
 			{
 				$this->destination = $dest;
-				$this->logStat("DEST_SET", TRUE);
+				$this->logStat("DEST_SET", true);
 			}
 		}
 		
-		public function setBoth($src = NULL, $dest = NULL)
+		public function setBoth($src = null, $dest = null)
 		{
 			$this->setSrc($src);
 			$this->setDest($dest);
 		}
 		
-		public function resize($newWidth, $newHeight)
+		public function resize($newWidth, $newHeight, $stretch = true)
 		{
-			if( $this->source == NULL )
+			//This function will NOT return an image with the exact dimensions specified if $stretch is false
+			//it will return an image with the LARGEST dimension matching the size indicated, and the other dimension scaled appropriately.
+			if( $this->source == null )
 			{
-				$this->logStat("CANNOT_RESIZE_NON-SRC", FALSE);
+				$this->logStat("CANNOT_RESIZE_NON-SRC", false);
+				return false;
 			}
 			else
 			{
 				$this->size();
-				$this->newXW = $newWidth;
-				$this->newYH = $newHeight;
-				$this->makeImg($newWidth, $newHeight);
-				$this->createHandle();
-				imagecopyresampled($this->newIm, $this->srcFh, 0, 0, 0, 0, $newWidth, $newHeight, $this->origXW, $this->origYH);
-				$this->logStat("RSZ_IMG_TO_X:".$newWidth."_Y:".$newHeight,TRUE);
-			}			
+				if( $stretch )
+				{
+					$this->newXW = $newWidth;
+					$this->newYH = $newHeight;
+					$this->makeImg($newWidth, $newHeight);
+					$this->createHandle();
+					imagecopyresampled($this->newIm, $this->srcFh, 0, 0, 0, 0, $newWidth, $newHeight, $this->origXW, $this->origYH);
+					$this->logStat("RSZ_IMG_TO_X:".$newWidth."_Y:".$newHeight,true);
+					return true;
+				}
+				else
+				{
+					if( $this->origXW > $this->origYH )
+					{
+						$perc = ($newWidth / $this->origXW) * 100;
+					}
+					else
+					{
+						$perc = ($newHeight / $this->origYH) * 100;
+					}
+					return $this->scale($perc);
+				}
+				
+			}
 		}
 		
 		public function scale($percent)
 		{
 			if( $percent < 1 )
 			{
-				$this->logStat("CANNOT_SCALE_BELOW_1%", FALSE);
-				return FALSE;
+				$this->logStat("CANNOT_SCALE_BELOW_1%", false);
+				return false;
 			}
 			
-			if( $this->source == NULL )
+			if( $this->source == null )
 			{
-				$this->logStat("CANNOT_SCALE_NON-SRC", FALSE);
-				return FALSE;
+				$this->logStat("CANNOT_SCALE_NON-SRC", false);
+				return false;
 			}
 			else
 			{
-				$scale = 100 / $percent;
+				$scale = $percent / 100;
 				$this->size();
 				$this->newXW = $this->origXW * $scale;
 				$this->newYH = $this->origYH * $scale;
 				$this->makeImg($this->newXW, $this->newYH);
 				$this->createHandle();
 				imagecopyresampled($this->newIm, $this->srcFh, 0, 0, 0, 0, $this->newXW, $this->newYH, $this->origXW, $this->origYH);
-				$this->logStat("SCL_IMG_TO_X:".$this->newXW."_Y:".$this->newYH,TRUE);
-				return TRUE;
+				$this->logStat("SCL_IMG_TO_X:".$this->newXW."_Y:".$this->newYH,true);
+				return true;
 			}
 		}
 		
-		public function size($source = NULL)
+		public function size($source = null)
 		{
-			if( $source == NULL && $this->source == NULL )
+			if( $source == null && $this->source == null )
 			{
-				$this->logStat("CANNOT_SIZE_NON-SRC", FALSE);
-				return FALSE;
+				$this->logStat("CANNOT_SIZE_NON-SRC", false);
+				return false;
 			}
-			elseif( $source != NULL )
+			elseif( $source != null )
 			{
 				$info = getimagesize($source);
-				$this->logStat("SIZED_".$source, TRUE);
+				$this->logStat("SIZED_".$source, true);
 				return array('x' => $info[0], 'y' => $info[1]);				
 			}
 			else
@@ -134,13 +154,13 @@
 					$this->origXW = $info[0];
 					$this->origYH = $info[1];
 					$this->origType = $info[2];
-					$this->logStat("GOT_IMG_SZ_X:".$info[0]."_Y:".$info[1]."_T:".$info[2],TRUE);
-					return TRUE;
+					$this->logStat("GOT_IMG_SZ_X:".$info[0]."_Y:".$info[1]."_T:".$info[2],true);
+					return true;
 				}
 				else
 				{
-					$this->logStat("READ_ERROR", FALSE);
-					return FALSE;
+					$this->logStat("READ_ERROR", false);
+					return false;
 				}
 			}		
 		}
@@ -159,27 +179,27 @@
 									imagepng($this->newIm, $this->destination);
 									break;
 				default:
-						$this->logStat("OUTPUT_FAIL_UNKNOWN_TYPE_".$this->origType,TRUE);
-						return FALSE;
+						$this->logStat("OUTPUT_FAIL_UNKNOWN_TYPE_".$this->origType,true);
+						return false;
 						break;
 			}
-			$this->logStat("OUTPUT_TO_TYPE:".$this->origType,TRUE);
-			return TRUE;
+			$this->logStat("OUTPUT_TO_TYPE:".$this->origType,true);
+			return true;
 		}
 		
 		//You don't have to explicitly set a destination as a parameter to this function.
 		//However, if you don't explicitly set one, you may (read will) run into issues,
 		//unless you've set one previously through any one of the numerous methods to do so.		
-		public function check($dest = NULL)
+		public function check($dest = null)
 		{
-			if( $dest == NULL && $this->destination == NULL)
+			if( $dest == null && $this->destination == null)
 			{
-				$this->logStat("CANNOT_CHECK_NON-DEST", FALSE);
-				return FALSE;
+				$this->logStat("CANNOT_CHECK_NON-DEST", false);
+				return false;
 			}
 			else
 			{
-				if( $dest != NULL )
+				if( $dest != null )
 				{
 					$res = file_exists( $dest );
 					$this->logStat("CHECK_FILE_".$dest, $res );
@@ -195,10 +215,10 @@
 		}
 		
 		//If you send an actual #, the function will return that log index (not recommended)
-		//If you send TRUE, the function will return the last log entry
+		//If you send true, the function will return the last log entry
 		//[If you send nothing, it does that too]
 		//If you send the string 'yes', the function will return the whole damn log to you.
-		public function log($command = NULL)
+		public function log($command = null)
 		{
 			$low = -1;
 			$high = count( $this->log );
@@ -206,7 +226,7 @@
 			{
 				return $this->log[$command];
 			}
-			elseif( (is_bool( $command ) && $command == TRUE) || $command == NULL )
+			elseif( (is_bool( $command ) && $command == true) || $command == null )
 			{
 				return $this->log[$high - 1];
 			}
@@ -221,10 +241,10 @@
 		}
 		
 		//If you send an actual #, the function will return that status index (not recommended)
-		//If you send TRUE, the function will return the last status entry
+		//If you send true, the function will return the last status entry
 		//[If you send nothing, it does that too]
 		//If you send the string 'yes', the function will return the whole damn status array to you. (REALLY not recommended)
-		public function stat( $command = NULL )
+		public function stat( $command = null )
 		{
 			$low = -1;
 			$high = count( $this->status );
@@ -232,7 +252,7 @@
 			{
 				return $this->status[$command];
 			}
-			elseif( (is_bool( $command ) && $command == TRUE) || $command == NULL )
+			elseif( (is_bool( $command ) && $command == true) || $command == null )
 			{
 				return $this->status[$high - 1];
 			}
@@ -252,8 +272,8 @@
 		{
 			imagedestroy($this->srcFh);
 			imagedestroy($this->newIm);
-			$this->logStat("CLEANED_HOUSE", TRUE );
-			return TRUE;
+			$this->logStat("CLEANED_HOUSE", true );
+			return true;
 		}
 		
 		private function logStat($msg, $bool)
@@ -268,7 +288,7 @@
 			$this->newIm = imagecreatetruecolor($x, $y);
 			imagealphablending($this->newIm, false);
 			imagesavealpha($this->newIm, true);
-			$this->logStat("CRT_EMPT_IMG_W/ALPHA", TRUE );
+			$this->logStat("CRT_EMPT_IMG_W/ALPHA", true );
 		}
 		
 		private function createHandle()
@@ -285,10 +305,10 @@
 									$this->srcFh = imagecreatefrompng($this->source);
 									break;
 				default:
-						$this->logStat("UNHANDLED_IMG_TYPE",FALSE);
+						$this->logStat("UNHANDLED_IMG_TYPE",false);
 						break;
 			}
-			$this->logStat("CRT_IMG_FRM_".$this->origType, TRUE );
+			$this->logStat("CRT_IMG_FRM_".$this->origType, true );
 		}
 	}
 ?>
