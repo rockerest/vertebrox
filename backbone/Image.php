@@ -153,6 +153,28 @@
 			}
 		}
 		
+		public function DrawRectangle($x, $y, $w, $h, $color, $filled, $alpha = 1)
+		{
+			$rgba = Color::HexToRGBA($color, $alpha);
+			if( $filled )
+			{
+				$ell = "imagefilledrectangle";
+			}
+			else
+			{
+				$ell = "imagerectangle";
+			}
+			
+			if( $ell( $this->newIm, $x, $y, $x + $w, $y + $h, $this->allocColor($this->srcFh, $rgba[0]['r'], $rgba[0]['g'], $rgba[0]['b'], $rgba[0]['alpha']) ) )
+			{
+				$this->logStat("DRAW:RECT_X:".$x."_Y:".$y."_W:".$w."_H:".$h."_C:".$rgba[1], true);
+			}
+			else
+			{
+				$this->logStat("DRAW:RECT_X:".$x."_Y:".$y."_W:".$w."_H:".$h."_C:".$rgba[1].";FAILED", false);
+			}
+		}
+		
 		public function size($source = null)
 		{
 			if( $source == null && $this->source == null )
