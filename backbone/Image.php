@@ -1,4 +1,5 @@
 <?php
+	require_once('Color.php');
 	class Image
 	{
 		private $log = array();
@@ -22,18 +23,10 @@
 		
 		public function __construct($src = null, $dest = null)
 		{
-			if( $src == null || $dest == null )
-			{
-				$this->logStat("SRC_or_DEST_!set", false);
-			}
-			elseif( $src != null && $dest != null )
-			{
-				$this->source = $src;
-				$this->destination = $dest;
-				$this->logStat("NEW_IMAGE_CREATED", true);
-				$this->logStat("SRC_CREATED", true);
-				$this->logStat("DEST_CREATED", true);
-			}
+			$this->setBoth($src, $dest);
+			$this->size();
+			$this->createHandle();
+			$this->makeImg($this->origXW, $this->origYH);
 		}
 		
 		public function setSrc($src = null)
@@ -66,6 +59,11 @@
 		{
 			$this->setSrc($src);
 			$this->setDest($dest);
+		}
+		
+		public function copySrc()
+		{
+			imagecopy($this->newIm, $this->srcFh, 0, 0, 0, 0, $this->origXW, $this->origYH);
 		}
 		
 		public function resize($newWidth, $newHeight, $stretch = true)
@@ -133,6 +131,28 @@
 			}
 		}
 		
+		public function DrawCircle($x, $y, $r, $color, $filled, $alpha = 1)
+		{
+			$rgba = Color::HexToRGBA($color, $alpha);
+			if( $filled )
+			{
+				$ell = "imagefilledellipse";
+			}
+			else
+			{
+				$ell = "imageellipse";
+			}
+			
+			if( $ell( $this->newIm, $x, $y, $r, $r, $this->allocColor($this->srcFh, $rgba[0]['r'], $rgba[0]['g'], $rgba[0]['b'], $rgba[0]['alpha']) ) )
+			{
+				$this->logStat("DRAW:CIRCLE_X:".$x."_Y:".$y."_R:".$r."_C:".$rgba[1], true);
+			}
+			else
+			{
+				$this->logStat("DRAW:CIRCLE_X:".$x."_Y:".$y."_R:".$r."_C:".$rgba[1].";FAILED", false);
+			}
+		}
+		
 		public function size($source = null)
 		{
 			if( $source == null && $this->source == null )
@@ -167,24 +187,45 @@
 		
 		public function output()
 		{
-			switch( $this->origType )
+			if( isset($this->destination) && $this->destination != null )
 			{
-				case 1:
-									imagegif($this->newIm, $this->destination);
-									break;
-				case 2:
-									imagejpeg($this->newIm, $this->destination);
-									break;
-				case 3:
-									imagepng($this->newIm, $this->destination);
-									break;
-				default:
-						$this->logStat("OUTPUT_FAIL_UNKNOWN_TYPE_".$this->origType,true);
-						return false;
-						break;
+				switch( $this->origType )
+				{
+					case 1:
+							imagegif($this->newIm, $this->destination);
+							break;
+					case 2:
+							imagejpeg($this->newIm, $this->destination);
+							break;
+					case 3:
+							imagepng($this->newIm, $this->destination);
+							break;
+					default:
+							$this->logStat("OUTPUT_FAIL_UNKNOWN_TYPE_".$this->origType,true);
+							return false;
+							break;
+				}
+			}
+			else
+			{
+				switch( $this->origType )
+				{
+					case 1:
+							imagegif($this->newIm);
+							break;
+					case 2:
+							imagejpeg($this->newIm);
+							break;
+					case 3:
+							imagepng($this->newIm);
+							break;
+					default:
+							$this->logStat("OUTPUT_FAIL_UNKNOWN_TYPE_".$this->origType,true);
+							return false;
+							break;
+				}
 			}
 			$this->logStat("OUTPUT_TO_TYPE:".$this->origType,true);
-			return true;
 		}
 		
 		//You don't have to explicitly set a destination as a parameter to this function.
@@ -276,6 +317,14 @@
 			return true;
 		}
 		
+		private function allocColor($fh, $r, $g, $b, $a = 1)
+		{
+			$alp = 1 - $a;
+			$alpha = $alp * 127;
+			
+			return imagecolorallocatealpha($fh, $r, $g, $b, $alpha);
+		}
+		
 		private function logStat($msg, $bool)
 		{
 			//this updates the error and status arrays
@@ -296,14 +345,14 @@
 			switch( $this->origType )
 			{
 				case 1:
-									$this->srcFh = imagecreatefromgif($this->source);
-									break;
+						$this->srcFh = imagecreatefromgif($this->source);
+						break;
 				case 2:
-									$this->srcFh = imagecreatefromjpeg($this->source);
-									break;
+						$this->srcFh = imagecreatefromjpeg($this->source);
+						break;
 				case 3:
-									$this->srcFh = imagecreatefrompng($this->source);
-									break;
+						$this->srcFh = imagecreatefrompng($this->source);
+						break;
 				default:
 						$this->logStat("UNHANDLED_IMG_TYPE",false);
 						break;
