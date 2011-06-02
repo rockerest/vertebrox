@@ -14,12 +14,6 @@
 		private $origType;
 		
 		private $newIm;
-		private $newXW;
-		private $newYH;
-		
-		//future implementation of start points to crop
-		//private $xP;
-		//private $yP;
 		
 		public function __construct($src = null, $dest = null)
 		{
@@ -66,6 +60,23 @@
 			imagecopy($this->newIm, $this->srcFh, 0, 0, 0, 0, $this->origXW, $this->origYH);
 		}
 		
+		public function getHandle()
+		{
+			return $this->newIm;
+		}
+		
+		public function __get($var)
+		{
+			if( $var == "width" )
+			{
+				return $this->origXW;
+			}
+			elseif( $var == "height" )
+			{
+				return $this->origYH;
+			}
+		}
+		
 		public function resize($newWidth, $newHeight, $stretch = true)
 		{
 			//This function will NOT return an image with the exact dimensions specified if $stretch is false
@@ -80,8 +91,6 @@
 				$this->size();
 				if( $stretch )
 				{
-					$this->newXW = $newWidth;
-					$this->newYH = $newHeight;
 					$this->makeImg($newWidth, $newHeight);
 					$this->createHandle();
 					imagecopyresampled($this->newIm, $this->srcFh, 0, 0, 0, 0, $newWidth, $newHeight, $this->origXW, $this->origYH);
@@ -143,7 +152,7 @@
 				$ell = "imageellipse";
 			}
 			
-			if( $ell( $this->newIm, $x, $y, $r, $r, $this->allocColor($this->srcFh, $rgba[0]['r'], $rgba[0]['g'], $rgba[0]['b'], $rgba[0]['alpha']) ) )
+			if( $ell( $this->newIm, $x, $y, $r, $r, $this->allocColor($this->newIm, $rgba[0]['r'], $rgba[0]['g'], $rgba[0]['b'], $rgba[0]['alpha']) ) )
 			{
 				$this->logStat("DRAW:CIRCLE_X:".$x."_Y:".$y."_R:".$r."_C:".$rgba[1], true);
 			}
@@ -158,20 +167,75 @@
 			$rgba = Color::HexToRGBA($color, $alpha);
 			if( $filled )
 			{
-				$ell = "imagefilledrectangle";
+				$rec = "imagefilledrectangle";
 			}
 			else
 			{
-				$ell = "imagerectangle";
+				$rec = "imagerectangle";
 			}
 			
-			if( $ell( $this->newIm, $x, $y, $x + $w, $y + $h, $this->allocColor($this->srcFh, $rgba[0]['r'], $rgba[0]['g'], $rgba[0]['b'], $rgba[0]['alpha']) ) )
+			if( $rec( $this->newIm, $x, $y, $x + $w, $y + $h, $this->allocColor($this->newIm, $rgba[0]['r'], $rgba[0]['g'], $rgba[0]['b'], $rgba[0]['alpha']) ) )
 			{
 				$this->logStat("DRAW:RECT_X:".$x."_Y:".$y."_W:".$w."_H:".$h."_C:".$rgba[1], true);
 			}
 			else
 			{
 				$this->logStat("DRAW:RECT_X:".$x."_Y:".$y."_W:".$w."_H:".$h."_C:".$rgba[1].";FAILED", false);
+			}
+		}
+		
+		public function DrawLine($x1, $y1, $x2, $y2, $color, $alpha = 1)
+		{
+			$rgba = Color::HexToRGBA($color, $alpha);
+			if( imageline( $this->newIm, $x1, $y1, $x2, $y2, $this->allocColor($this->newIm, $rgba[0]['r'], $rgba[0]['g'], $rgba[0]['b'], $rgba[0]['alpha']) ) )
+			{
+				$this->logStat("DRAW:LINE:".$x1.",".$y1."-".$x2.",".$y2."_C:".$rgba[1], true);
+			}
+			else
+			{
+				$this->logStat("DRAW:LINE:".$x1.",".$y1."-".$x2.",".$y2."_C:".$rgba[1].";FAILED", false);
+			}
+		}
+		
+		public function DrawOverlay( $src, $dx, $dy, $sx, $sy, $sw, $sh, $alpha = 1 )
+		{
+			$alpha *= 100;
+			if( $this->imagecopymerge_alpha($this->newIm, $src->getHandle(), $dx, $dy, $sx, $sy, $sw, $sh, $alpha) )
+			{
+				$this->logStat("DRAW:IMG_OVERLAY", true);
+			}
+			else
+			{
+				$this->logStat("DRAW:IMG_OVERLAY;FAILED", true);
+			}
+		}
+		
+		public function WriteDefault( $x, $y, $string, $size, $color, $alpha = 1, $vert = false )
+		{
+			$rgba = Color::HexToRGBA($color, $alpha);
+			if( $size > 5 || $size < 1 )
+			{
+				$this->logStat("WRITE:".$string.":".$x.",".$y."_S:".$size."_C:".$rgba[1]."_V:".$vert.";FAILED", false);
+			}
+			else
+			{
+				if( $vert )
+				{
+					$str = "imagestringup";
+				}
+				else
+				{
+					$str = "imagestring";
+				}
+				
+				if( $str( $this->newIm, $size, $x, $y, $string, $this->allocColor($this->newIm, $rgba[0]['r'], $rgba[0]['g'], $rgba[0]['b'], $rgba[0]['alpha']) ) )
+				{
+					$this->logStat("WRITE:".$string.":".$x.",".$y."_S:".$size."_C:".$rgba[1]."_V:".$vert, true);
+				}
+				else
+				{
+					$this->logStat("WRITE:".$string.":".$x.",".$y."_S:".$size."_C:".$rgba[1]."_V:".$vert.";FAILED", false);
+				}
 			}
 		}
 		
@@ -380,6 +444,60 @@
 						break;
 			}
 			$this->logStat("CRT_IMG_FRM_".$this->origType, true );
+		}
+		
+		//Fix for imagecopymerge not respecting alpha
+		//http://www.php.net/manual/en/function.imagecopymerge.php#102844
+		function imagecopymerge_alpha($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct, $trans = NULL)
+		{
+			$dst_w = imagesx($dst_im);
+			$dst_h = imagesy($dst_im);
+
+			// bounds checking
+			$src_x = max($src_x, 0);
+			$src_y = max($src_y, 0);
+			$dst_x = max($dst_x, 0);
+			$dst_y = max($dst_y, 0);
+			if ($dst_x + $src_w > $dst_w)
+			{
+				$src_w = $dst_w - $dst_x;
+			}
+			
+			if ($dst_y + $src_h > $dst_h)
+			{
+				$src_h = $dst_h - $dst_y;
+			}
+
+			for($x_offset = 0; $x_offset < $src_w; $x_offset++)
+			{
+				for($y_offset = 0; $y_offset < $src_h; $y_offset++)
+				{
+					// get source & dest color
+					$srccolor = imagecolorsforindex($src_im, imagecolorat($src_im, $src_x + $x_offset, $src_y + $y_offset));
+					$dstcolor = imagecolorsforindex($dst_im, imagecolorat($dst_im, $dst_x + $x_offset, $dst_y + $y_offset));
+
+					// apply transparency
+					if (is_null($trans) || ($srccolor !== $trans))
+					{
+						$src_a = $srccolor['alpha'] * $pct / 100;
+						// blend
+						$src_a = 127 - $src_a;
+						$dst_a = 127 - $dstcolor['alpha'];
+						$dst_r = ($srccolor['red'] * $src_a + $dstcolor['red'] * $dst_a * (127 - $src_a) / 127) / 127;
+						$dst_g = ($srccolor['green'] * $src_a + $dstcolor['green'] * $dst_a * (127 - $src_a) / 127) / 127;
+						$dst_b = ($srccolor['blue'] * $src_a + $dstcolor['blue'] * $dst_a * (127 - $src_a) / 127) / 127;
+						$dst_a = 127 - ($src_a + $dst_a * (127 - $src_a) / 127);
+						$color = imagecolorallocatealpha($dst_im, $dst_r, $dst_g, $dst_b, $dst_a);
+						// paint
+						if (!imagesetpixel($dst_im, $dst_x + $x_offset, $dst_y + $y_offset, $color))
+						{
+							return false;
+						}
+						imagecolordeallocate($dst_im, $color);
+					}
+				}
+			}
+			return true;
 		}
 	}
 ?>
