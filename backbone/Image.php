@@ -47,19 +47,19 @@
 		{
 			if( $var == "Combine" )
 			{
-				return new ImageCombine(&$this);
+				return new ImageCombine($this);
 			}
 			if( $var == "Draw" )
 			{
-				return new ImageDraw(&$this);
+				return new ImageDraw($this);
 			}
 			if( $var == "Manipulate" )
 			{
-				return new ImageManipulate(&$this);
+				return new ImageManipulate($this);
 			}
 			if( $var == "Write" )
 			{
-				return new ImageWrite(&$this);
+				return new ImageWrite($this);
 			}
 			return $this->$var;
 		}

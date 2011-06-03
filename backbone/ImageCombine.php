@@ -4,7 +4,7 @@
 		public function Overlay( $ovr, $dx, $dy, $sx, $sy, $sw, $sh, $alpha = 1 )
 		{
 			$alpha *= 100;
-			if( $this->imagecopymerge_alpha($ovr->handle, $this->handle, $dx, $dy, $sx, $sy, $sw, $sh, $alpha) )
+			if( $this->imagecopymerge_alpha($this->handle, $ovr->handle, $dx, $dy, $sx, $sy, $sw, $sh, $alpha) )
 			{
 				return true;
 			}
@@ -16,7 +16,7 @@
 		
 		//Fix for imagecopymerge not respecting alpha
 		//http://www.php.net/manual/en/function.imagecopymerge.php#102844
-		function imagecopymerge_alpha($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct, $trans = NULL)
+		private function imagecopymerge_alpha($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct, $trans = NULL)
 		{
 			$dst_w = imagesx($dst_im);
 			$dst_h = imagesy($dst_im);
