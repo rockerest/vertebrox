@@ -10,11 +10,6 @@
 
 	class Image extends ImageBase
 	{
-		private $Write;
-		private $Manipulate;
-		private $Draw;
-		private $Combine;
-		
 		protected $height;
 		protected $width;
 		protected $type;
