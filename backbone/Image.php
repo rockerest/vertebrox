@@ -89,6 +89,19 @@
 			return $this->handle;
 		}
 		
+		public function SafeSource($source)
+		{
+			// =====> THIS IS TOTALLY UNSAFE.
+			//The user will have a source file that doesn't match his string representation.
+			//I'm creating this ONLY so that returned Image objects match as closely as possible
+			//	with the input Object.
+			//If this proves to be a mistake, I'll leave it out.
+			//After all, the new object coming back ISN'T the original, so maintaining that
+			//	ubiquity is not very important.
+			
+			$this->source = $source;
+		}
+		
 		public function output()
 		{
 			$dest = isset( $this->destination );

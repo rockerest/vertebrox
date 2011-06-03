@@ -14,6 +14,7 @@
 				
 				if( imagecopyresampled($new->handle, $this->handle, 0, 0, 0, 0, $newWidth, $newHeight, $this->caller->width, $this->caller->height) )
 				{
+					$new->SafeSource( $this->caller->source );
 					$new->destination = $this->caller->destination;
 					return $new;
 				}
@@ -52,6 +53,7 @@
 			
 			if( imagecopyresampled($new->handle, $this->handle, 0, 0, 0, 0, $w, $h, $this->caller->width, $this->caller->height) )
 			{
+				$new->SafeSource( $this->caller->source );
 				$new->destination = $this->caller->destination;
 				return $new;
 			}
