@@ -4,7 +4,7 @@
 		public function Overlay( $ovr, $dx, $dy, $sx, $sy, $sw, $sh, $alpha = 1 )
 		{
 			$alpha *= 100;
-			if( $this->imagecopymerge_alpha($this->handle, $ovr->handle, $dx, $dy, $sx, $sy, $sw, $sh, $alpha) )
+			if( $this->imagecopymerge_alpha( $this->handle, $ovr->handle, $dx, $dy, $sx, $sy, $sw, $sh, $alpha ) )
 			{
 				return true;
 			}

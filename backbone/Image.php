@@ -10,6 +10,11 @@
 
 	class Image extends ImageBase
 	{
+		private $Write;
+		private $Manipulate;
+		private $Draw;
+		private $Combine;
+		
 		protected $height;
 		protected $width;
 		protected $type;
@@ -63,11 +68,11 @@
 		{
 			if( is_string($var) )
 			{
-				$var = array( $var => $val );
+				$val = array( $var => $val );
 			}
-			if( is_array($var) )
+			if( is_array($val) )
 			{
-				foreach( $var as $name => $content )
+				foreach( $val as $name => $content )
 				{
 					$this->$name = $content;
 					if( $name == "source" )
@@ -204,18 +209,27 @@
 			switch( $this->type )
 			{
 				case 1:
-						$this->handle = imagecreatefromgif($this->source);
+						$loadImg = imagecreatefromgif($this->source);
 						break;
 				case 2:
-						$this->handle = imagecreatefromjpeg($this->source);
+						$loadImg = imagecreatefromjpeg($this->source);
 						break;
 				case 3:
-						$this->handle = imagecreatefrompng($this->source);
+						$loadImg = imagecreatefrompng($this->source);
 						break;
 				default:
 						break;
 			}
-			return true;
+			
+			$this->newImage();
+			if( $loadImg && imagecopyresampled($this->handle, $loadImg, 0, 0, 0, 0, $this->width, $this->height, $this->width, $this->height) )
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 	}
 ?>
