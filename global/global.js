@@ -1,4 +1,4 @@
-function go_here(loc, delay_ms)
+function go_here(loc)
 {
 	window.location=loc;
 	return false;
