@@ -161,6 +161,11 @@
 			}
 		}
 		
+		public function contentType()
+		{
+			return $this->Type($this->type, "string");
+		}
+		
 		//if you resize a 15Mpixel image and then don't call clean(), don't come
 		//crying to me when PHP decides that you've run out of memory.
 		public function clean()

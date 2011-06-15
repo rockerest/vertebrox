@@ -42,7 +42,7 @@
 			
 			if( imagettftext($text->handle, $textSize, $angle, $padding, abs($size[5]) + $padding, $this->AllocateColor($rgba[0]['r'], $rgba[0]['g'], $rgba[0]['b'], $rgba[0]['alpha']), $font, $string) )
 			{
-				if( $this->caller->Combine->Overlay( $text, 0, 0, 0, 0, $text->width, $text->height ) )
+				if( $this->caller->Combine->Overlay( $text, $x, $y, 0, 0, $text->width, $text->height ) )
 				{
 					return true;
 				}
