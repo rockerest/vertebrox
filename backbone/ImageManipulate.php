@@ -62,5 +62,16 @@
 				return false;
 			}
 		}
+		
+		public function Rotate($angle)
+		{
+			//always make the uncovered color transparent
+			$rgba = Color::HexToRGBA("#FFFFFF", 0);
+			$color = $this->AllocateColor($rgba[0]['r'], $rgba[0]['g'], $rgba[0]['b'], $rgba[0]['alpha']);
+			
+			$img = new Image();
+			$img->handle = imagerotate($this->handle, $angle, $color);
+			return $img;
+		}
 	}
 ?>

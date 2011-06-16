@@ -75,6 +75,10 @@
 						$this->size();
 						$this->loadImage();						
 					}
+					elseif( $name == "handle" )
+					{
+						$this->size();
+					}
 				}
 			}
 		}
@@ -178,7 +182,16 @@
 		{
 			if( $this->source == null )
 			{
-				return false;
+				if( $this->handle == null )
+				{
+					return false;
+				}
+				else
+				{
+					//leaves default file type as .png since .png rocks
+					$this->width = imagesx($this->handle);
+					$this->height = imagesy($this->handle);
+				}
 			}
 			else
 			{
