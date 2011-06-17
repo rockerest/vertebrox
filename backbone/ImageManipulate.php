@@ -63,6 +63,24 @@
 			}
 		}
 		
+		public function Crop($top, $right, $bottom, $left)
+		{
+			$x = $left;
+			$y = $top;
+			$width = ($this->caller->width - $left) - $right;
+			$height = ($this->caller->height - $top) - $bottom;
+			$new = new Image( $width, $height );
+			
+			if( imagecopyresampled($new->handle, $this->handle, 0, 0, $x, $y, $width, $height, $width, $height) )
+			{
+				return $new;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		
 		public function Rotate($angle)
 		{
 			//always make the uncovered color transparent
