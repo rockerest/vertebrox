@@ -1,23 +1,20 @@
 <?php
-function curPageURL()
-{
-	$pageURL = 'http';
-	if ($_SERVER["HTTPS"] == "on")
-	{
-		$pageURL .= "s";
-	}
+	$action = isset( $_GET['action'] ) ? $_GET['action'] : null;
 	
-	$pageURL .= "://";
-	
-	if ($_SERVER["SERVER_PORT"] != "80")
+	if( $action == 'phps' )
 	{
-		$pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
-	}
-	else
-	{
-		$pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
-	}
+		$file = isset( $_GET['file'] ) ? $_GET['file'] : null;
+		if( $file != null )
+		{
+			phps($file);
+		}
+	}	
 	
-	return $pageURL;
-}
+	function phps($url)
+	{
+		if( substr($url, strpos($url, '.')) == '.phps' )
+		{
+			highlight_file('../' . $url);
+		}
+	}
 ?>
