@@ -79,6 +79,10 @@
 					{
 						$this->size();
 					}
+					elseif( $name == "type" )
+					{
+						$this->type = $this->Type($content, "int");
+					}
 				}
 			}
 		}
