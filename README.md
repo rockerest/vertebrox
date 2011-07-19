@@ -11,4 +11,16 @@ This framework includes the following third-party code:
 [Blackbird logging console](http://www.gscottolson.com/blackbirdjs/) by G. Scott Olson.  
 [CSS3 Buttons CSS Framework](http://css3buttons.michaelhenriksen.dk/) by Michael Henriksen.  
 
-This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+I couldn't find a good license, because there are too many goddamn licenses, so I wrote this:  
+
+This work is licensed under the following terms:  
+1. You may copy, distribute, transmit and modify this work  
+2. You may include this work in any product, commercial or otherwise  
+3. You must attribute this work to the author (me) wherever you use it  
+4. You must clearly include a copy of this license when you share this work  
+5. Any of the above conditions can be waived by me at any time  
+6. Any public domain items in this work are not affected by this license  
+
+The following term is part of the license, and must be included in any copies.
+
+1. You are strongly encouraged to share this work if you modify or improve it, under this or an equivalent license.
