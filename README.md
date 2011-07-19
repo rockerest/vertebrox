@@ -7,7 +7,7 @@ jquery/ is any jQuery plugins that I've written (it's just one right now).
 
 If you're interested in this repo, what you probably want is the stuff in backbone/.  I also recommend you take a look at global/, but the stuff in there is personal preference.
 
-This framework includes the following third-party code:  
+This framework includes the following third-party items:  
 [Blackbird logging console](http://www.gscottolson.com/blackbirdjs/) by G. Scott Olson.  
 [CSS3 Buttons CSS Framework](http://css3buttons.michaelhenriksen.dk/) by Michael Henriksen.  
 
