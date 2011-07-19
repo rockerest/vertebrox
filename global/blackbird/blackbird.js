@@ -284,16 +284,16 @@
 			function( msg ) { addMessage( 'debug', msg ); },
 		warn:
 			function( msg ) { addMessage( 'warn', msg ); },
-		info:
-			function( msg ) { addMessage( 'info', msg ); },
-		error:
-			function( msg ) { addMessage( 'error', msg ); },
+		binfo:
+			function( msg ) { addMessage( 'binfo', msg ); },
+		rerror:
+			function( msg ) { addMessage( 'rerror', msg ); },
 		profile: 
 			function( label ) {
 				var currentTime = new Date(); //record the current time when profile() is executed
 				
 				if ( label == undefined || label == '' ) {
-					addMessage( 'error', '<b>ERROR:</b> Please specify a label for your profile statement' );
+					addMessage( 'rerror', '<b>ERROR:</b> Please specify a label for your profile statement' );
 				}
 				else if ( profiler[ label ] ) {
 					addMessage( 'profile', [ label, ': ', currentTime - profiler[ label ],	'ms' ].join( '' ) );
@@ -333,7 +333,7 @@
 
 			window[ NAMESPACE ].init = function() {
 				show();
-				window[ NAMESPACE ].error( [ '<b>', NAMESPACE, '</b> can only be initialized once' ] );
+				window[ NAMESPACE ].rerror( [ '<b>', NAMESPACE, '</b> can only be initialized once' ] );
 			}
 
 			addEvent( window, 'unload', function() {
