@@ -1,0 +1,212 @@
+This is an example file for <a href="https://github.com/rockerest/myframework">myframework</a>.
+<hr />
+<?= $tmpl->passedvar; ?>
+<hr />
+<span style="color: #<?= $tmpl->hex; ?>;">This color (<?= $tmpl->rgb[1]; ?>) was calculated by Color.php.</span>
+<br />
+<span style="color: <?= $tmpl->alpha[1]; ?>">This color  (<?= $tmpl->alpha[1]; ?>) with alpha was calculated by Color.php.</span>
+<hr />
+The following image was created in MSPaint.
+<br />
+<img src="portrait.png" alt="portrait" />
+<br />
+The following image was edited by myframework with the following code:
+<br />
+<code>
+	$img = new Image();
+	<br />
+	$img->source('portrait.png');
+	<br />
+	$img->Write->Normal(20, 20, "A Self Portrait of Me", 5, "#000000", 1);
+	<br />
+	$img->destination('portrait2.png');
+	<br />
+	$img->output();
+	<br />
+	$img->clean();
+	<br />
+	unset($img);
+</code>
+<a href="#image">more about the image library</a>
+<br />
+<img src="portrait2.png" alt="portrait2" />
+<hr />
+You can use <code>throw new RedirectBrowserException("url");</code> to use <code>header('Location: url');</code> even after headers have been sent.
+<hr />
+This is a session variable: <code><?= $_SESSION['foo']; ?></code>
+<hr />
+At this moment, <code>URL.php</code> is exclusively a <code>.phps</code> syntax highlighter.
+<br />
+I pass any url that hits my server requesting <code>*.phps</code> through that file so that I can serve those kinds of files.
+<br />
+For an example, point your browser to <a href="http://www.thomasrandolph.info/test/index.phps">this demo</a>.
+<hr />
+<a name="image">
+The functions and their parameters of the Image library are as follows:
+<br />
+<code>
+	//places the image in the destination, or to the default output if no destination is specified<br />
+	//returns boolean success or failure<br />
+	bool Image->output();
+	<br />
+	<br />
+	//copies the image object<br />
+	//returns new image object<br />
+	Image Image->copy();
+	<br />
+	<br />
+	//checks whether the destination is set, and whether the destination file already exists<br />
+	//returns false if destination isn't set, boolean whether file at destination exists<br />
+	bool Image->check();
+	<br />
+	<br />
+	//returns a string formatted for header('Content-type:');<br />
+	string Image->ContentType();
+	<br />
+	<br />
+	//destroys the string representation of the contained image.<br />
+	//possibly very large, you should always call this when you're done<br />
+	//returns true.  Always.<br />
+	bool Image->clean();
+</code>
+<br />
+The functions and their parameters of the Image->Combine library are as follows:
+<br />
+<code>
+	//overlays one image on another image<br />
+	//returns boolean for success/failure<br />
+	boolean Image->Combine->Overlay($overimg, $destination_x, $destination_y, $source_x, $source_y, $source_width, $source_height, $alpha = 1)
+	<br />
+	<br />
+	Where:
+	<br />
+	$overimg is an Image object to put on TOP of the current object<br />
+	$destination_x and _y is the location on the current object to place the top left corner of the overlay image<br />
+	$source_x and _y is the new location of the top left corner of the overlay image (0,0 usually works well)<br />
+	$source_width and _height is the amount of pixels to grab from the overlay image ($overimg->width and $overimg->height usually work well)<br />
+	$alpha is how transparent the overlaid image should be, from .00 to 1.0<br />
+</code>
+<br />
+The functions and their parameters of the Image->Draw library are as follows:
+<br />
+<code>
+	//draws a circle<br />
+	//returns boolean for success/failure<br />
+	boolean Image->Draw->Circle($x, $y, $r, $color, $filled = false, $alpha = 1)
+	<br />
+	<br />
+	Where:
+	<br />
+	$x and $y is the location on the image to draw the center<br />
+	$r is the radius of the circle<br />
+	$color is the hex color of the circle<br />
+	$filled is [0|1] whether the circle should be filled or not<br />
+	$alpha is how transparent the circle should be, from .00 to 1.0<br />
+	<br />
+	//draws a rectangle<br />
+	//returns boolean for success/failure<br />
+	boolean Image->Draw->Rectangle($x, $y, $w, $h, $color, $filled = false, $alpha = 1)
+	<br />
+	<br />
+	Where:
+	<br />
+	$x and $y is the location on the image to draw the center<br />
+	$w and $h are the width and height, respectively, of the rectangle to draw<br />
+	$color is the hex color of the rectangle<br />
+	$filled is [0|1] whether the rectangle should be filled or not<br />
+	$alpha is how transparent the rectangle should be, from .00 to 1.0<br />
+	<br />
+	//draws a line<br />
+	//returns boolean for success/failure<br />
+	boolean Image->Draw->Line($x1, $y1, $x2, $y2, $color, $alpha = 1)
+	<br />
+	<br />
+	Where:
+	<br />
+	$x1 and $y1 is the location on the image to draw the line FROM<br />
+	$x2 and $y2 is the location on the image to draw the line TO<br />
+	$color is the hex color of the line<br />
+	$alpha is how transparent the line should be, from .00 to 1.0<br />
+</code>
+<br />
+The functions and their parameters of the Image->Manipulate library are as follows:
+<br />
+<code>
+	//resizes an image<br />
+	//returns boolean for success/failure<br />
+	boolean Image->Manipulate->Resize($newWidth, $newHeight, $stretch = true)
+	<br />
+	<br />
+	Where:
+	<br />
+	$newWidth and $newHeight is the intended resulting image size.<br />
+	$stretch determines the actual output.<br />
+	If true, the source image is compressed to fit in the dimensions specified.<br />
+	If false, the largest dimension will be determined, and the image will be scaled so that that dimension matches<br />
+	<br />
+	//scales an image<br />
+	//returns boolean for success/failure<br />
+	boolean Image->Manipulate->Scale($percent)
+	<br />
+	<br />
+	Where:
+	<br />
+	$percent is a number >= 1 to scale the image to.  Numbers larger than 100 require a fairly significant about of memory.<br />
+	Numbers larger than 1000 are utterly insane<br />
+	<br />
+	//crops an image<br />
+	//returns boolean for success/failure<br />
+	boolean Image->Manipulate->Crop($top, $right, $bottom, $left)
+	<br />
+	<br />
+	Where:
+	<br />
+	The parameters are how much to REMOVE from their respective sides (how many pixels IN should the edge be placed).
+	<br />
+	//rotates an image<br />
+	//returns boolean for success/failure<br />
+	boolean Image->Manipulate->Rotate($angle)
+	<br />
+	<br />
+	Where:
+	<br />
+	$angle is the number of degrees to rotate the image around it's center counter-clockwise (anti-clockwise).<br />
+	<br />
+</code>
+<br />
+The functions and their parameters of the Image->Write library are as follows:
+<br />
+<code>
+	//Writes text in system font<br />
+	//returns boolean for success/failure<br />
+	boolean Image->Write->Normal($x, $y, $string, $size, $color, $alpha = 1, $vert = false)
+	<br />
+	<br />
+	Where:
+	<br />
+	$x and $y are the location on the image to place the top left corner of the text.<br />
+	$string is the text to place.<br />
+	$size is the font size between 1 and 5.<br />
+	$color is the hex color for the text<br />
+	$alpha is the transparency of the text between .00 and 1.0<br />
+	$vert is the boolean [0|1]|[true|false] for whether to write the text vertically or not<br />
+	<br />
+	///Writes text in any TrueType font<br />
+	//returns boolean for success/failure<br />
+	boolean Image->Write->Font($x, $y, $string, $textSize, $color, $angle, $font, $alpha = 1, $bg = "#000000", $bgA = 0, $padding = 0)
+	<br />
+	<br />
+	Where:
+	<br />
+	$x and $y are the location on the image to place the top left corner of the text.<br />
+	$string is the text to place.<br />
+	$textSize is the font size in points.<br />
+	$color is the hex color for the text.<br />
+	$angle is the angle in degrees counter-clockwise to write the text.<br />
+	$font is the location on disk of the font file.<br />
+	$alpha is the transparency of the text between .00 and 1.0<br />
+	$bg is the hex color of the optional background box for the text.<br />
+	$bgA is the alpha transparency between .00 and 1.0 of the optional background box for the text.<br />
+	$padding is the optional amount that the background box is distanced from the text.<br />
+</code>
+
