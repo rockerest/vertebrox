@@ -58,7 +58,22 @@
 
 /* Element Styles		*/
 /*						*/
-
+	
+	/* Personal Resets  */
+	html{
+		font-family: Helvetica, Arial, Tahoma, Geneva, sans-serif;
+	}
+	
+	body{
+		color: #000000;
+		background: #FFFFFF;
+		
+		width: 100%;
+		height: 100%;
+		text-align: center;
+	}
+	/* end Body */
+	
 	/* Headers */
 	h1{
 		font-size: 1.5em;
