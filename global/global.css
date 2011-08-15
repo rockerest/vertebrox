@@ -16,8 +16,11 @@
 		font-weight: inherit;
 		font-style: inherit;
 		font-size: 100%;
-		font-family: Arial, Helvetica, Tahoma, Geneva, sans-serif;
 		vertical-align: baseline;
+	}
+	
+	html{
+		font-family: Arial, Helvetica, Tahoma, Geneva, sans-serif;
 	}
 
 	:focus {
