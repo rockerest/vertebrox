@@ -48,7 +48,7 @@
 				{
 					$found = IMAGETYPE_GIF;
 				}
-				elseif( in_array( $type, $JPEG ) )
+				elseif( in_array( $in, $JPEG ) )
 				{
 					$found = IMAGETYPE_JPEG;
 				}
