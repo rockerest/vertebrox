@@ -68,7 +68,7 @@
 			}
 			
 			$res[0]['alpha'] = $alpha;
-			$res[1] = "rgba" . substr($res[1], 3, -1) . ", $alpha)";
+			$res[1] = "rgba(" . substr($res[1], 3, -1) . ", $alpha)";
 			
 			return $res;
 		}
