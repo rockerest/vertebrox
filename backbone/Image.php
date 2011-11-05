@@ -219,6 +219,7 @@
 			$this->handle = imagecreatetruecolor($this->width, $this->height);
 			imagealphablending($this->handle, false);
 			imagesavealpha($this->handle, true);
+			$this->Draw->Fill('#000000', 0);
 		}
 		
 		private function loadImage()

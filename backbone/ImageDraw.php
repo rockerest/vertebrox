@@ -57,5 +57,18 @@
 				return false;
 			}
 		}
+		
+		public function Fill($color = '#000000', $alpha = 1)
+		{
+			$rgba = Color::HexToRGBA($color, $alpha);
+			if( imagefill($this->handle, 0, 0, $this->AllocateColor($rgba[0]['r'], $rgba[0]['g'], $rgba[0]['b'], $rgba[0]['alpha']) ) )
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 	}
 ?>
