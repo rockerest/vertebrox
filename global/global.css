@@ -140,27 +140,17 @@
 /*	Class Styles		*/
 /*						*/
 	/* Clearfix */
+		.clear:before,
 		.clear:after {
-			content: ".";
-			display: block;
-			height: 0;
+			content: "";
+			display: table;
+		}
+		.clear:after {
 			clear: both;
-			visibility: hidden;
 		}
-					
 		.clear {
-			display: inline-block;
+			zoom: 1; /* For IE 6/7 (trigger hasLayout) */
 		}
-
-		/* Hides from IE-mac \*/
-		* html .clear {
-			height: 1%;
-		}
-
-		.clear {
-			display: block;
-		}
-		/* End hide from IE-mac */
 	/* End Clearfix */
 	
 	/* Message Boxes */
