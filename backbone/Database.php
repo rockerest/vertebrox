@@ -188,17 +188,34 @@
 				case 'mysql':
 					$dsn = 'mysql:dbname='.$db.';host='.$loc;
 					$this->dbh = new PDO($dsn, $user, $pass);
-					return $this;
 					break;
 				case 'mongo':
-					$con = new Mongo("mongodb://{$user}:{$pass}@{$loc}"); // Connect to Mongo Server
-					return $con->selectDB($db); // Connect to Database
+					if( $user == null && $pass == null )
+					{
+						$con = new Mongo();
+					}
+					else
+					{
+						$con = new Mongo("mongodb://{$user}:{$pass}@{$loc}");
+					}
+					$this->dbh = $con->selectDB($db);
+					break;
 				default:
 					$this->logStat("UNHANDLED_DB_TYPE",FALSE);
 					break;
 			}
-			
-			return $this;
+		}
+		
+		public function __get($var)
+		{
+			if( $var == 'connection' )
+			{
+				return $this->dbh;
+			}
+			else
+			{
+				return false;
+			}
 		}
 		
 		public function q($sql)
