@@ -73,7 +73,7 @@
 		text-align: center;
 	}
 	/* end Body */
-	
+
 	/* Headers */
 	h1{
 		font-size: 1.5em;
@@ -255,6 +255,14 @@
 		
 		.follow{
 			margin-bottom: 1em;
+		}
+		
+		.nudge{
+			margin-left: 1em;
+		}
+		
+		.push{
+			margin-right: 1em;
 		}
 
 		.center-text{
