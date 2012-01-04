@@ -277,6 +277,14 @@
 			text-align: right;
 		}
 		
+		.float-l{
+			float: left;
+		}
+		
+		.float-r{
+			float: right;
+		}
+		
 		.quote{
 			margin-left: 4em;
 			margin-right: 4em;

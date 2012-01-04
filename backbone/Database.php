@@ -2,10 +2,9 @@
 /*	Database.php
  *	Programmed by Tom Randolph
  *	11 March 2010
- *	Last Updated: 13 November 2011
+ *	Last Updated: 08 August 2010
  *	====================================
  *
- *	v13112011	- added handler for MongoDB. Removed credential storage, reset()
  *	v01112010	- added some documentation and prep() function
  *	v08082010	- removed explicit direct binding
  *	v05082010	- added direct binding of variables
@@ -188,34 +187,17 @@
 				case 'mysql':
 					$dsn = 'mysql:dbname='.$db.';host='.$loc;
 					$this->dbh = new PDO($dsn, $user, $pass);
+					return $this;
 					break;
 				case 'mongo':
-					if( $user == null && $pass == null )
-					{
-						$con = new Mongo();
-					}
-					else
-					{
-						$con = new Mongo("mongodb://{$user}:{$pass}@{$loc}");
-					}
-					$this->dbh = $con->selectDB($db);
-					break;
+					$con = new Mongo("mongodb://{$user}:{$pass}@{$loc}"); // Connect to Mongo Server
+					return $con->selectDB($db); // Connect to Database
 				default:
 					$this->logStat("UNHANDLED_DB_TYPE",FALSE);
 					break;
 			}
-		}
-		
-		public function __get($var)
-		{
-			if( $var == 'connection' )
-			{
-				return $this->dbh;
-			}
-			else
-			{
-				return false;
-			}
+			
+			return $this;
 		}
 		
 		public function q($sql)
