@@ -5,7 +5,7 @@
 		private $jqueryui;
 		public function __construct()
 		{
-			$v = "1.7"; //jQuery version
+			$v = "1.7.1"; //jQuery version
 			$uiv = "1.8.16"; // jQueryUI version
 			
 			$this->jquery = "<!--    Load Javascript Library - jQuery	-->\n<script type=\"text/javascript\" src=\"https://ajax.googleapis.com/ajax/libs/jquery/$v/jquery.min.js\"></script>";
