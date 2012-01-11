@@ -1,5 +1,5 @@
 <?php
-	class Jquery
+	class jQuery
 	{
 		private $jquery;
 		private $jqueryui;
