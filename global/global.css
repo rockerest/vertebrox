@@ -106,33 +106,27 @@
 /* IDed Styles		*/
 /*						*/
 	#nojs{
-		line-height: 1.1;
-		font-size: 0.75em;
+		line-height: 2.5em;
+		font-size: 13px;
 		background: #CC3333;
-		color: #000000;
+		color: #FFFFFF;
 		
 		position: fixed;
 		bottom: 0em;
 		left: 10%;
 		
 		margin: 0em auto 0em auto;
-		padding: .0625em;
+		padding: 1em;
 		
 		width: 80%;
 		z-index: 100000;
 		
-		-webkit-border-top-left-radius: 2.1875em;
-		-webkit-border-top-right-radius: 2.1875em;
-		-webkit-border-bottom-right-radius: 0em;
-		-webkit-border-bottom-left-radius: 0em;
-		-moz-border-radius-topleft: 2.1875em;
-		-moz-border-radius-topright: 2.1875em;
+		-webkit-radius: 1em 1em 0 0;
+		-moz-border-radius-topleft: 1em;
+		-moz-border-radius-topright: 1em;
 		-moz-border-radius-bottomright: 0em;
 		-moz-border-radius-bottomleft: 0em;
-		border-top-left-radius: 2.1875em;
-		border-top-right-radius: 2.1875em;
-		border-bottom-right-radius: 0em;
-		border-bottom-left-radius: 0em; 
+		border-radius: 1em 1em 0 0;
 	}
 /*	End IDed Styles	*/
 /*						*/
