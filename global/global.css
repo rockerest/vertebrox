@@ -336,6 +336,10 @@
 		.pointer{
 			cursor: pointer;
 		}
+		
+		.arrow{
+			cursor: default;
+		}
 	/* End UI */
 	
 	/* Display and visibility */
