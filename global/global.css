@@ -191,41 +191,15 @@
 	/* End Message Boxes */
 	
 	/* Text color, styling, decoration */
-		.italics{
-			font-style: italic;
-		}
-
-		.bold{
-			font-weight: bold;
-		}
-
-		.underline{
-			text-decoration: underline;
-		}
-
-		.no-dec{
-			text-decoration: none !important;
-		}
-		
-		.strike{
-			text-decoration: line-through;
-		}
-
-		.keyword{
-			text-shadow: 0 0 .1em #FFFFFF;
-		}
-
-		.sub{
-			vertical-align: sub;
-		}
-
-		.sup{
-			vertical-align: super;
-		}
-		
-		.quote{
-			font-style: italic;
-		}
+		.italics{font-style: italic;}
+		.bold{font-weight: bold;}
+		.underline{text-decoration: underline;}
+		.no-dec{text-decoration: none !important;}
+		.strike{text-decoration: line-through;}
+		.keyword{text-shadow: 0 0 .1em #FFFFFF;}
+		.sub{vertical-align: sub;}
+		.sup{vertical-align: super;}
+		.quote{font-style: italic;}
 	/* End text color, styling, decoration */
 	
 	/* Positioning */
@@ -237,47 +211,22 @@
 			margin-left: auto;
 			margin-right: auto;
 		}
-		
 		.right{
 			margin-right: 0;
 			margin-left: auto;
 		}
 		
-		.bump{
-			margin-top: 1em;
-		}
-		
-		.follow{
-			margin-bottom: 1em;
-		}
-		
-		.nudge{
-			margin-left: 1em;
-		}
-		
-		.push{
-			margin-right: 1em;
-		}
+		.bump{margin-top: 1em;}
+		.follow{margin-bottom: 1em;}
+		.nudge{margin-left: 1em;}
+		.push{margin-right: 1em;}
 
-		.center-text{
-			text-align: center;
-		}
-
-		.left-text{
-			text-align: left;
-		}
-
-		.right-text{
-			text-align: right;
-		}
+		.center-text{text-align: center;}
+		.left-text{text-align: left;}
+		.right-text{text-align: right;}
 		
-		.float-l{
-			float: left;
-		}
-		
-		.float-r{
-			float: right;
-		}
+		.float-l{float: left;}
+		.float-r{float: right;}
 		
 		.quote{
 			margin-left: 4em;
@@ -286,25 +235,12 @@
 	/* End positioning */
 	
 	/* Sizing */
-		.huge{
-			font-size: 1.5em;
-		}
+		.huge{font-size: 1.5em;}
+		.large{font-size: 1.25em;}
+		.small{font-size: .75em;}
+		.tiny{font-size: .5em;}
 		
-		.large{
-			font-size: 1.25em;
-		}
-
-		.small{
-			font-size: .75em;
-		}
-		
-		.tiny{
-			font-size: .5em;
-		}
-		
-		.sub, .sup{
-			font-size: .5em;
-		}
+		.sub, .sup{font-size: .5em;}
 		
 		.w10{width: 10%;}
 		.w20{width: 20%;}
@@ -321,33 +257,19 @@
 	/* End sizing */
 	
 	/* Spacing */
-		.tall{
-			line-height: 1.3em;
-		}
+		.tall{line-height: 1.3em;}
+		.short{line-height: .75em;}
 	/* End spacing */
 	
 	/* UI */
-		.pointer{
-			cursor: pointer;
-		}
-		
-		.arrow{
-			cursor: default;
-		}
+		.pointer{cursor: pointer;}
+		.arrow{cursor: default;}
 	/* End UI */
 	
 	/* Display and visibility */
-		.hide{
-			display: none;
-		}
-		
-		.table{
-			display: table;
-		}
-		
-		.cell{
-			display: table-cell;
-		}
+		.hide{display: none;}
+		.table{display: table;}
+		.cell{display: table-cell;}
 	/* End display and visibility */
 	
 /*	End Class Styles	*/
