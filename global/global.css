@@ -270,6 +270,7 @@
 		.hide{display: none;}
 		.table{display: table;}
 		.cell{display: table-cell;}
+		.iblock{display: inline-block;}
 	/* End display and visibility */
 	
 /*	End Class Styles	*/
