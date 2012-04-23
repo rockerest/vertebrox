@@ -1,3 +1,12 @@
+This set of files could be the backbone of many PHP applications.
+However, it's not a framework; it helps build applications, but it doesn't handle everything.
+It's more like a toolbox that a good developer could use to augment their project.
+It's more like a set of vertebrae, instead of the entire backbone.
+It's a vertebrae toolbox.
+
+Vertebrox
+======
+
 backbone/ is where the real magic happens.
 
 I do love my global/ files, but that's a personal preference thing.
