@@ -5,6 +5,7 @@
  *	Last Updated: 08 August 2010
  *	====================================
  *
+ *  v27052012	- added MS SQL Server dsn option
  *	v01112010	- added some documentation and prep() function
  *	v08082010	- removed explicit direct binding
  *	v05082010	- added direct binding of variables
@@ -192,6 +193,11 @@
 				case 'mongo':
 					$con = new Mongo("mongodb://{$user}:{$pass}@{$loc}"); // Connect to Mongo Server
 					return $con->selectDB($db); // Connect to Database
+					break;
+				case 'sqlserver':
+					$dsn = 'sqlsrv:server=' . $loc . ';Database=' . $db;
+					$this->dbh = new PDO( $dsn, $user, $pass );
+					break;
 				default:
 					$this->logStat("UNHANDLED_DB_TYPE",FALSE);
 					break;
