@@ -3,7 +3,8 @@
 	{
 		private $filename;
 		protected $config;
-		
+		protected $root;
+
 		public function __construct( $root, $conf ){
 			$this->root = $root;
 			$this->conf = $conf;
@@ -17,14 +18,5 @@
 			}
 
 			$this->config = $config;
-		}
-		
-		public function __get($var){
-			if( !in_array($var, array('config','conf','configuration')) ){
-				return $this->config[$var];
-			}
-			else{
-				return $this->config;
-			}
 		}
 	}

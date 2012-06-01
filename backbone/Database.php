@@ -2,7 +2,7 @@
 /*	Database.php
  *	Programmed by Tom Randolph
  *	11 March 2010
- *	Last Updated: 08 August 2010
+ *	Last Updated: 27 May 2012
  *	====================================
  *
  *  v27052012	- added MS SQL Server dsn option
