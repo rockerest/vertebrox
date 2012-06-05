@@ -1,10 +1,7 @@
 <?php
-	class Color
-	{
-		public static function HexToRGB($hex)
-		{
-			if( $hex[0] == '#' )
-			{
+	class Color{
+		public static function HexToRGB($hex){
+			if( $hex[0] == '#' ){
 				$hex = substr($hex, 1);
 			}
 			
@@ -22,48 +19,38 @@
 						);
 		}
 		
-		public static function RGBToHex($r, $g, $b)
-		{
-			if( $r < 256 && $r > -1 )
-			{
+		public static function RGBToHex($r, $g, $b){
+			if( $r < 256 && $r > -1 ){
 				$h = dechex($r);
 			}
-			else
-			{
+			else{
 				$h = "00";
 			}
 			
-			if( $g < 256 && $g > -1 )
-			{
+			if( $g < 256 && $g > -1 ){
 				$e = dechex($g);
 			}
-			else
-			{
+			else{
 				$e = "00";
 			}
 			
-			if( $b < 256 && $b > -1 )
-			{
+			if( $b < 256 && $b > -1 ){
 				$x = dechex($b);
 			}
-			else
-			{
+			else{
 				$x = "00";
 			}
 			
 			return $h . $e . $x;
 		}
 		
-		public static function HexToRGBA($hex, $alpha)
-		{
+		public static function HexToRGBA($hex, $alpha){
 			$res = Color::HexToRGB($hex);
 			
-			if( $alpha > 1 )
-			{
+			if( $alpha > 1 ){
 				$alpha = $alpha / 100;
 			}
-			elseif( $alpha < 0 )
-			{
+			elseif( $alpha < 0 ){
 				$alpha = 0;
 			}
 			

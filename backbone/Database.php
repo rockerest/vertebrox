@@ -165,8 +165,7 @@
  *				$wv defaults to true (1)
  *	====================================
 */
-	class Database
-	{
+	class Database{
 		private $dbh;
 		
 		private $prepq = '';
@@ -181,10 +180,8 @@
 		private $log = array();
 		private $status = array();
 		
-		public function  __construct($user,$pass,$db,$loc,$type)
-		{		
-			switch($type)
-			{
+		public function  __construct($user,$pass,$db,$loc,$type){		
+			switch($type){
 				case 'mysql':
 					$dsn = 'mysql:dbname='.$db.';host='.$loc;
 					$this->dbh = new PDO($dsn, $user, $pass);
@@ -206,16 +203,12 @@
 			return $this;
 		}
 		
-		public function q($sql)
-		{				
-			if( $sql === '' || $sql == null)
-			{
-				if( $this->prepq == '' )
-				{
+		public function q($sql){				
+			if( $sql === '' || $sql == null){
+				if( $this->prepq == '' ){
 					$this->logStat("PREV_PREP_DNE",TRUE);;
 				}
-				else
-				{
+				else{
 					$this->prepq->setFetchMode(PDO::FETCH_ASSOC);
 				
 					$this->logStat("Q_OLD_SQL",TRUE);
@@ -223,13 +216,11 @@
 					return $this->prepq->fetchAll();
 				}
 			}
-			else
-			{
+			else{
 				$this->qsql = $sql;
 				$this->qiterate = 0;
 				
-				if( $this->dbh )
-				{
+				if( $this->dbh ){
 					$this->prepq = $this->dbh->prepare($this->qsql);
 					$this->prepq->execute();
 					$this->prepq->setFetchMode(PDO::FETCH_ASSOC);
@@ -238,24 +229,19 @@
 					$this->qiterate += 1;
 					return $this->prepq->fetchAll();
 				}
-				else
-				{
+				else{
 					$this->logStat("DB_CONN_DNE",FALSE);
 				}
 			}
 		}
 		
-		public function qwv($sql, $vars_array, $bind = false)
-		{
+		public function qwv($sql, $vars_array, $bind = false){
 			$this->qwvvals = $vars_array;
-			if( $sql === '' || $sql == null)
-			{
-				if( $this->prepqwv == '' )
-				{
+			if( $sql === '' || $sql == null){
+				if( $this->prepqwv == '' ){
 					$this->logStat("PREV_PREP_DNE", FALSE);
 				}
-				else
-				{
+				else{
 					$this->prepqwv->execute(array_values($this->qwvvals));
 					
 					$this->prepqwv->setFetchMode(PDO::FETCH_ASSOC);
@@ -264,13 +250,11 @@
 					return $this->prepqwv->fetchAll();
 				}
 			}
-			else
-			{
+			else{
 				$this->qwvsql = $sql;
 				$this->qwviterate = 0;
 				
-				if( $this->dbh )
-				{
+				if( $this->dbh ){
 					$this->prepqwv = $this->dbh->prepare($this->qwvsql);
 					
 					$this->prepqwv->execute(array_values($this->qwvvals));
@@ -280,63 +264,50 @@
 					$this->qwviterate += 1;
 					return $this->prepqwv->fetchAll();
 				}
-				else
-				{
+				else{
 					$this->logStat("DB_CONN_DNE", FALSE);
 				}
 			}
 		}
 		
-		public function prep($sql, $wv = 1)
-		{
-			if( $wv)
-			{
+		public function prep($sql, $wv = 1){
+			if( $wv){
 				$this->qwvsql = $sql;
-				if( $this->dbh )
-				{
+				if( $this->dbh ){
 					$this->prepqwv = $this->dbh->prepare($this->qwvsql);
 				}
-				else
-				{
+				else{
 					$this->logStat("DB_CONN_DNE", FALSE);
 				}
 			}
-			else
-			{
+			else{
 				$this->qsql = $sql;
-				if( $this->dbh )
-				{
+				if( $this->dbh ){
 					$this->prepq = $this->dbh->prepare($this->qsql);
 				}
-				else
-				{
+				else{
 					$this->logStat("DB_CONN_DNE",FALSE);
 				}
 			}
 		}
 		
-		public function qwviterations()
-		{
+		public function qwviterations(){
 			return $this->qwviterations;
 		}
 		
-		public function qiterations()
-		{
+		public function qiterations(){
 			return $this->qiterations;
 		}
 		
-		public function getq()
-		{
+		public function getq(){
 			return $this->prepq->queryString;
 		}
 		
-		public function getqwv()
-		{
+		public function getqwv(){
 			return $this->prepqwv->queryString;
 		}
 		
-		private function logStat($msg, $bool)
-		{
+		private function logStat($msg, $bool){
 			//this updates the error and status arrays
 			array_push($this->log, $msg);
 			array_push($this->status, $bool);
@@ -346,24 +317,19 @@
 		//If you send TRUE, the function will return the last log entry
 		//[If you send nothing, it does that too]
 		//If you send the string 'yes', the function will return the whole damn log to you. (REALLY not recommended)
-		public function log($command = NULL)
-		{
+		public function log($command = NULL){
 			$low = -1;
 			$high = count( $this->log );
-			if( is_int( $command ) && $low < $command && $command < $high)
-			{
+			if( is_int( $command ) && $low < $command && $command < $high){
 				return $this->log[$command];
 			}
-			elseif( (is_bool( $command ) && $command == TRUE) || $command == NULL )
-			{
+			elseif( (is_bool( $command ) && $command == TRUE) || $command == NULL ){
 				return $this->log[$high - 1];
 			}
-			elseif( is_string( $command ) && $command == 'yes' )
-			{
+			elseif( is_string( $command ) && $command == 'yes' ){
 				return $this->log;
 			}
-			else
-			{
+			else{
 				return "Bad input parameter.  Index out of scope or command unknown.";
 			}			
 		}
@@ -372,31 +338,25 @@
 		//If you send TRUE, the function will return the last status entry
 		//[If you send nothing, it does that too]
 		//If you send the string 'yes', the function will return the whole damn status array to you. 
-		public function stat( $command = NULL )
-		{
+		public function stat( $command = NULL ){
 			$low = -1;
 			$high = count( $this->status );
-			if( is_int( $command ) && $low < $command && $command < $high)
-			{
+			if( is_int( $command ) && $low < $command && $command < $high){
 				return $this->status[$command];
 			}
-			elseif( (is_bool( $command ) && $command == TRUE) || $command == NULL )
-			{
+			elseif( (is_bool( $command ) && $command == TRUE) || $command == NULL ){
 				return $this->status[$high - 1];
 			}
-			elseif( is_string( $command ) && $command == 'yes' )
-			{
+			elseif( is_string( $command ) && $command == 'yes' ){
 				return $this->status;
 			}
-			else
-			{
+			else{
 				return "Bad input parameter.  Index out of scope or command unknown.";
 			}
 		}
 		
 		//last returns the id of most recent insert
-		public function last()
-		{
+		public function last(){
 			return $this->dbh->lastInsertId();
 		}
 	}

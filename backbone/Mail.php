@@ -1,8 +1,6 @@
 <?php
-	class Mail
-	{
-		public static function sendMail( $to, $from, $subject, $body )
-		{
+	class Mail{
+		public static function sendMail( $to, $from, $subject, $body ){
 			$headers = 'From: ' . $from . "\r\n";
 			$headers .= 'Reply-To: ' . $from . "\r\n";
 			$headers .= 'Return-Path: ' . $from . "\r\n";
@@ -19,38 +17,31 @@
 		private $subject;
 		private $body;
 		
-		public function __construct($to = null, $from = null, $subject = null, $body = null)
-		{
+		public function __construct($to = null, $from = null, $subject = null, $body = null){
 			$this->recipients = $this->headers = array();
 			
-			if( $to )
-			{
+			if( $to ){
 				$this->addRecipient($to);
 			}
 			
-			if( $from )
-			{
+			if( $from ){
 				$this->setSender($from);
 			}
 			
-			if( $subject )
-			{
+			if( $subject ){
 				$this->setSubject($subject);
 			}
 			
-			if( $body )
-			{
+			if( $body ){
 				$this->setBody($body);
 			}
 		}
 		
-		public function setHeader($key, $val)
-		{
+		public function setHeader($key, $val){
 			$this->headers[$key] = $val;
 		}
 		
-		public function setDefaultHeaders()
-		{
+		public function setDefaultHeaders(){
 			$this->setHeader('From', $this->sender);
 			$this->setHeader('Reply-To', $this->sender);
 			$this->setHeader('Return-Path', $this->sender);
@@ -59,67 +50,53 @@
 			$this->setHeader('MIME-Version', '1.0');
 		}
 		
-		public function addRecipient($to)
-		{
+		public function addRecipient($to){
 			array_push($this->recipients, $to);
 		}
 		
-		public function setSender($from)
-		{
+		public function setSender($from){
 			$this->sender = $from;
 			$this->setDefaultHeaders();
 		}
 		
-		public function setSubject($sub)
-		{
+		public function setSubject($sub){
 			$this->subject = $sub;
 		}
 		
-		public function setBody($body)
-		{
+		public function setBody($body){
 			$this->body = $body;
 		}
 		
-		public function send($split = false)
-		{
-			if( $this->allSet() )
-			{
+		public function send($split = false){
+			if( $this->allSet() ){
 				$headers = '';
 				$results = array();
-				foreach( $this->headers as $k => $v )
-				{
+				foreach( $this->headers as $k => $v ){
 					$headers .= $k . ': ' . $v . "\r\n";
 				}
 				
-				if( $split )
-				{
-					foreach( $this->recipients as $to )
-					{
+				if( $split ){
+					foreach( $this->recipients as $to ){
 						array_push($results, mail($to, $this->subject, $this->body, $headers));
 					}
 				}
-				else
-				{
+				else{
 					$to = implode(',',$this->recipients);
 					array_push($results, mail($to, $this->subject, $this->body, $headers));
 				}
 				
 				return implode("\r\n\r\n", $results);
 			}
-			else
-			{
+			else{
 				return false;
 			}
 		}
 		
-		private function allSet()
-		{
-			if( $this->headers && $this->recipients && $this->sender && $this->subject && $this->body )
-			{
+		private function allSet(){
+			if( $this->headers && $this->recipients && $this->sender && $this->subject && $this->body ){
 				return true;
 			}
-			else
-			{
+			else{
 				return false;
 			}
 		}

@@ -1,6 +1,5 @@
 <?php
-	class Config
-	{
+	class Config{
 		private $filename;
 		protected $config;
 		protected $root;

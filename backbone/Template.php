@@ -1,12 +1,9 @@
 <?php
-class Template
-{
-    public function __construct()
-	{
+class Template{
+    public function __construct(){
     }       
     
-    function build($templateFilePath)
-	{
+    function build($templateFilePath){
         $tmpl = $this;
         // suppress non-existent variable warnings
         error_reporting(E_ALL - E_NOTICE);

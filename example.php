@@ -26,8 +26,7 @@
 	//start a session and store a variable;
 	setSession(0,'/'); // expires with browser session, the root is '/'
 	setSessionVar('foo', 'bar'); //there's no retrieval function, so this is kind of stupid
-	if( !isset($_SESSION['foo']) )
-	{
+	if( !isset($_SESSION['foo']) ){
 		throw new RedirectBrowserException("example.php");
 	}
 	
@@ -39,10 +38,8 @@
 	
 	$result = $db->qwv($sql, $values); // query with values, returns array of rows (can be empty)
 	
-	if( $db->stat() ) // <-- the boolean representing whether the last query was successful
-	{
-		foreach( $result as $row )
-		{
+	if( $db->stat() ) // <-- the boolean representing whether the last query was successful{
+		foreach( $result as $row ){
 			print $row['myid'] . "<br />";
 		}
 	}
