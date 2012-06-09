@@ -1,10 +1,10 @@
 This is an example file for <a href="https://github.com/rockerest/myframework">myframework</a>.
 <hr />
-<?= $tmpl->passedvar; ?>
+<?php echo $tmpl->passedvar; ?>
 <hr />
-<span style="color: #<?= $tmpl->hex; ?>;">This color (<?= $tmpl->rgb[1]; ?>) was calculated by Color.php.</span>
+<span style="color: #<?php echo $tmpl->hex; ?>;">This color (<?php echo $tmpl->rgb[1]; ?>) was calculated by Color.php.</span>
 <br />
-<span style="color: <?= $tmpl->alpha[1]; ?>">This color  (<?= $tmpl->alpha[1]; ?>) with alpha was calculated by Color.php.</span>
+<span style="color: <?php echo $tmpl->alpha[1]; ?>">This color  (<?php echo $tmpl->alpha[1]; ?>) with alpha was calculated by Color.php.</span>
 <hr />
 The following image was created in MSPaint.
 <br />
@@ -33,7 +33,7 @@ The following image was edited by myframework with the following code:
 <hr />
 You can use <code>throw new RedirectBrowserException("url");</code> to use <code>header('Location: url');</code> even after headers have been sent.
 <hr />
-This is a session variable: <code><?= $_SESSION['foo']; ?></code>
+This is a session variable: <code><?php echo $_SESSION['foo']; ?></code>
 <hr />
 At this moment, <code>URL.php</code> is exclusively a <code>.phps</code> syntax highlighter.
 <br />
