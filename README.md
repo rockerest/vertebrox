@@ -1,3 +1,8 @@
+THIS REPO IS DEPRECATED.
+------------------------
+This repository has been deprecated and merged into [nox](https://github.com/rockerest/nox).
+============================================================================================
+
 This set of files could be the backbone of many PHP applications.  
 However, it's not a framework; it helps build applications, but it doesn't handle everything.  
 It's more like a toolbox that a good developer could use to augment their project.  
